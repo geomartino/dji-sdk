@@ -76,6 +76,51 @@ class DJIMapView: UIView, MKMapViewDelegate {
         _mapView!.addAnnotation(hotPointAnnotation!)
         hotPointAnnotation!.title = String(format: "{%0.6f, %0.6f}", coordinate.latitude, coordinate.longitude)
     }
+    
+    func zoomToFitMapAnnotations(waypoints: [AnyObject]){
+    
+        if (waypoints.count > 0) {
+            var topLeftCoord = CLLocationCoordinate2D(latitude: -90, longitude: 180)
+            var bottomRightCoord = CLLocationCoordinate2D(latitude: 90, longitude: -180)
+            
+            for i in 0 ..< waypoints.count {
+                let waypoint: DJIWaypoint = waypoints[i] as! DJIWaypoint
+                print( waypoint.coordinate.latitude)
+                print( waypoint.coordinate.longitude)
+                
+                topLeftCoord = CLLocationCoordinate2D(latitude: fmax(topLeftCoord.latitude, waypoint.coordinate.latitude), longitude:fmin(topLeftCoord.longitude, waypoint.coordinate.longitude))
+                
+                bottomRightCoord = CLLocationCoordinate2D(latitude: fmin(bottomRightCoord.latitude, waypoint.coordinate.latitude), longitude: fmax(bottomRightCoord.longitude, waypoint.coordinate.longitude))
+                
+            }
+
+            //var region: MKCoordinateRegion
+            
+            let location = CLLocationCoordinate2D(latitude: topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5, longitude: topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5)
+            
+            let span = MKCoordinateSpanMake(fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 1.1, fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.1)
+        
+            let region = MKCoordinateRegion(center: location, span: span)
+           
+            //region = [mapView regionThatFits:region];
+            let adjustedRegion: MKCoordinateRegion = _mapView!.regionThatFits(region)
+            _mapView!.setRegion(adjustedRegion, animated: true)
+
+        }
+
+    }
+
+    //func fitToAnnotationsBbox(waypoints: [AnyObject]) {
+        //var waypoint: DJIWaypoint
+        //for i in 0 ..< waypoints.count {
+        //    let waypoint: DJIWaypoint = waypoints[i] as! DJIWaypoint
+        //    print( waypoint.coordinate.latitude)
+        //    print( waypoint.coordinate.longitude)
+        //}
+       // _mapView!.setRegion(_mapView!.annotationVisibleRect, animated: true)
+    //}
+    
+    
     /**
      *  Update aircraft location and heading.
      *
@@ -137,6 +182,7 @@ class DJIMapView: UIView, MKMapViewDelegate {
     }
 
     func setMapType(mapType: MKMapType) {
+        
     }
 
     convenience required init(coder aDecoder: NSCoder) {

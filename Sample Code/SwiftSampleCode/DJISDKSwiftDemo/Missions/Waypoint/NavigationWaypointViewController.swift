@@ -8,15 +8,26 @@
 import UIKit
 import MapKit
 import DJISDK
-
-let DEGREEOFTHIRTYMETER = 0.0000899322 * 3
+import SwiftCSV
+let DEGREE_OF_THIRTY_METER = 0.0000899322 * 3
 //#define DEGREE(x) ((x)*180.0/M_PI)
 
-class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControllerDelegate, MKMapViewDelegate, DJIMissionManagerDelegate, NavigationWaypointConfigViewDelegate {
+extension String {
+    var floatValue: Float {
+        return (self as NSString).floatValue
+    }
+}
+
+class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControllerDelegate, MKMapViewDelegate, DJIMissionManagerDelegate, NavigationWaypointConfigViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, NSURLSessionDownloadDelegate, UIDocumentInteractionControllerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var tipsView: UIView!
     @IBOutlet weak var tipsLabel: UILabel!
     @IBOutlet weak var speedSlider: UISlider!
+    
+    @IBOutlet weak var missionPicker: UIPickerView!
+    
+    @IBOutlet weak var downloadMissionButton: UIButton!
+    
     var progressAlertView: UIAlertView? = nil
     var isEditEnable: Bool = false
     var waypointList: [AnyObject]=[]
@@ -32,6 +43,11 @@ class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControll
     var missionManager:DJIMissionManager = DJIMissionManager.sharedInstance()!
     
 
+    var filesArray = ["FirstMission", "GDIR_PlanVolChampCarrier1"]
+    var indexSelected = 0
+    var downloadTask: NSURLSessionDownloadTask!
+    var backgroundSession: NSURLSession!
+    
     @IBAction func onUploadMissionButtonClicked(sender: AnyObject) {
         if CLLocationCoordinate2DIsValid(self.aircraftLocation) {
             self.updateMission()
@@ -69,6 +85,10 @@ class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControll
 
     @IBAction func onDownloadMissionButtonClicked(sender: AnyObject) {
         
+        self.missionPicker.hidden = false
+        self.downloadMissionButton.enabled = false
+        
+        /*
         self.missionManager.downloadMissionWithProgress({[weak self](progress: Float) -> Void in
             
             let message: String = "Mission Downloading:\(Int(progress * 100))%%"
@@ -98,6 +118,7 @@ class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControll
             }
 
         })
+        */
     }
 
     @IBAction func onStartMissionButtonClicked(sender: AnyObject) {
@@ -117,11 +138,13 @@ class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControll
     }
 
     @IBAction func onPauseMissionButtonClicked(sender: AnyObject) {
+        
         self.missionManager.pauseMissionExecutionWithCompletion({[weak self] (error: NSError?) -> Void in
             if (error != nil ) {
                 self?.showAlertResult("Pause Mission:\(error!.description)")
             }
         })
+        
     }
 
     @IBAction func onResumeMissionButtonClicked(sender: AnyObject) {
@@ -177,7 +200,12 @@ class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControll
         self.view!.addSubview(self.waypointMissionConfigView!)
         self.tipsLabel.layer.cornerRadius = 5.0
         self.tipsLabel.layer.backgroundColor = UIColor.blackColor().CGColor
+        mapView.mapType = MKMapType.Hybrid
         self.djiMapView = DJIMapView(mapView: mapView)
+        
+        let backgroundSessionConfiguration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("backgroundSession")
+        backgroundSession = NSURLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: NSOperationQueue.mainQueue())
+        //progressView.setProgress(0.0, animated: false)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -429,5 +457,143 @@ class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControll
         }
     }
 
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+        return filesArray.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+        print("mission selected =  " + filesArray[row])
+        self.navigationController!.title = filesArray[row]
+        self.title = filesArray[row]
+        self.indexSelected = row
+        self.missionPicker.hidden = true
+        self.downloadMissionButton.enabled = true
+        //let url = NSURL(string: "https://www.dropbox.com/s/19sepkw02kiizrm/FirstMission.waypoints?dl=1")!
+        //let url = NSURL(string: "https://dl.dropboxusercontent.com/u/23634529/test3.csv?dl=1")!
+        //good one
+        //
+        
+        var dropboxURL: String = ""
+        if row == 0 {
+            dropboxURL = "https://www.dropbox.com/s/19sepkw02kiizrm/FirstMission.waypoints?dl=1"
+        }
+        if row == 1 {
+            dropboxURL = "https://www.dropbox.com/s/aphw8opb99erddv/GDIR_PlanVolChampCarrier1.waypoints?dl=1"
+        }
+        let url = NSURL(string: dropboxURL)!
+        downloadTask = backgroundSession.downloadTaskWithURL(url)
+        downloadTask.resume()
+        
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) ->String?{
+        return filesArray[row]
+    }
 
+    func URLSession(session: NSURLSession,
+                    downloadTask: NSURLSessionDownloadTask,
+                    didFinishDownloadingToURL location: NSURL){
+        
+        let path = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+        let documentDirectoryPath:String = path[0]
+        let fileManager = NSFileManager()
+        let uuidFilename = "gdir_" + NSUUID().UUIDString + ".csv"
+        print("unique filename=" + uuidFilename)
+        let destinationURLForFile = NSURL(fileURLWithPath: documentDirectoryPath.stringByAppendingString("/" + uuidFilename))
+        
+        if fileManager.fileExistsAtPath(destinationURLForFile.path!){
+            showFileWithPath(destinationURLForFile.path!)
+        }
+        else{
+            do {
+                try fileManager.moveItemAtURL(location, toURL: destinationURLForFile)
+                // show file
+                showFileWithPath(destinationURLForFile.path!)
+            }catch{
+                print("An error occurred while moving file to destination url")
+            }
+        }
+    }
+    // 2
+    func URLSession(session: NSURLSession,
+                    downloadTask: NSURLSessionDownloadTask,
+                    didWriteData bytesWritten: Int64,
+                                 totalBytesWritten: Int64,
+                                 totalBytesExpectedToWrite: Int64){
+        //progressView.setProgress(Float(totalBytesWritten)/Float(totalBytesExpectedToWrite), animated: true)
+    }
+    
+    
+    func URLSession(session: NSURLSession,
+                    task: NSURLSessionTask,
+                    didCompleteWithError error: NSError?){
+        downloadTask = nil
+        //progressView.setProgress(0.0, animated: true)
+        if (error != nil) {
+            print(error?.description)
+        }else{
+            print("The task finished transferring data successfully")
+        }
+    }
+    
+    func showFileWithPath(path: String){
+        let height: Float = 30.0
+        self.waypointMission.removeAllWaypoints()
+        self.waypointMission.maxFlightSpeed = 6.0
+        self.waypointMission.autoFlightSpeed = 4.0
+        self.waypointMission.finishedAction = DJIWaypointMissionFinishedAction.GoHome
+        self.waypointMission.headingMode = DJIWaypointMissionHeadingMode.Auto
+        self.waypointMission.flightPathMode = DJIWaypointMissionFlightPathMode.Normal
+        self.waypointAnnotations.removeAll()
+        self.waypointList.removeAll()
+        //DJIWaypointMissionAirLineCurve
+    
+        let isFileFound:Bool? = NSFileManager.defaultManager().fileExistsAtPath(path)
+        if isFileFound == true{
+            //let viewer = UIDocumentInteractionController(URL: NSURL(fileURLWithPath: path))
+            //viewer.delegate = self
+            //viewer.presentPreviewAnimated(true)
+            do {
+                let csv = try CSV(name: path, delimiter: "\t", encoding: NSUTF8StringEncoding, loadColumns: false)
+                
+                //var point1: CLLocationCoordinate2D
+                //var wp1: DJIWaypoint
+                let action1: DJIWaypointAction = DJIWaypointAction(actionType: DJIWaypointActionType.ShootPhoto, param: 0)
+
+                csv.enumerateAsArray { array in
+                    //array[8], array[9], array[10]
+                    if ((array[8] as NSString).doubleValue > 0 ){
+                        let point1 = CLLocationCoordinate2DMake((array[8] as NSString).doubleValue + DEGREE_OF_THIRTY_METER, (array[9] as NSString).doubleValue)
+                        let wp1 = DJIWaypoint(coordinate: point1)
+                        self.waypointList.append(wp1)
+                        wp1.altitude = (array[10] as NSString).floatValue
+                        wp1.addAction(action1)
+                        self.waypointMission.addWaypoint(wp1)
+                        if self.waypointMission.flightPathMode == DJIWaypointMissionFlightPathMode.Curved {
+                            self.calcCornerRadius()
+                        }
+                        let wpAnnotation: DJIWaypointAnnotation = DJIWaypointAnnotation()
+                        wpAnnotation.coordinate = point1
+                        wpAnnotation.text = "\(Int(self.waypointList.count))"
+                        self.mapView.addAnnotation(wpAnnotation)
+                        self.waypointAnnotations.append(wpAnnotation)
+                    }
+                }
+                //print(tsv.columns)
+                //print(tsv.rows)
+                self.djiMapView?.zoomToFitMapAnnotations(self.waypointList)
+            } catch {
+                // Error handling
+            }
+        }
+    }
+    
+    func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController{
+        return self
+    }
+    
 }

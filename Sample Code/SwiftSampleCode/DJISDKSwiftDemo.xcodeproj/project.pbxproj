@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0239F1D11C332D400008DEA4 /* CustomMissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F1CB1C332D400008DEA4 /* CustomMissionViewController.swift */; };
-		0239F1D31C332D400008DEA4 /* DJICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F1CD1C332D400008DEA4 /* DJICollectionViewCell.swift */; };
-		0239F1D41C332D400008DEA4 /* DJICollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0239F1CE1C332D400008DEA4 /* DJICollectionViewCell.xib */; };
-		0239F1D51C332D400008DEA4 /* DJIStepsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F1CF1C332D400008DEA4 /* DJIStepsCollectionView.swift */; };
-		0239F1D61C332D400008DEA4 /* DJIStepsCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0239F1D01C332D400008DEA4 /* DJIStepsCollectionView.xib */; };
 		0239F2401C3336500008DEA4 /* DJIAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F2391C3336500008DEA4 /* DJIAnnotation.swift */; };
 		0239F2411C3336500008DEA4 /* DJIAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F23A1C3336500008DEA4 /* DJIAnnotationView.swift */; };
 		0239F2421C3336500008DEA4 /* DJIPOIAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F23B1C3336500008DEA4 /* DJIPOIAnnotationView.swift */; };
@@ -21,12 +16,7 @@
 		0239F2511C338C660008DEA4 /* DJIWaypointAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F24F1C338C660008DEA4 /* DJIWaypointAnnotationView.swift */; };
 		0239F2541C338C740008DEA4 /* DJIAircraftAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F2521C338C740008DEA4 /* DJIAircraftAnnotation.swift */; };
 		0239F2551C338C740008DEA4 /* DJIAircraftAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F2531C338C740008DEA4 /* DJIAircraftAnnotationView.swift */; };
-		0239F2781C3602AE0008DEA4 /* NavigationFollowMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F25A1C3602AE0008DEA4 /* NavigationFollowMeViewController.swift */; };
-		0239F27C1C3602AE0008DEA4 /* HotPointConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F25F1C3602AE0008DEA4 /* HotPointConfigView.swift */; };
-		0239F27D1C3602AE0008DEA4 /* HotPointConfigView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0239F2601C3602AE0008DEA4 /* HotPointConfigView.xib */; };
-		0239F27E1C3602AE0008DEA4 /* NavigationHotPointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F2611C3602AE0008DEA4 /* NavigationHotPointViewController.swift */; };
 		0239F2821C3602AE0008DEA4 /* NavigationIOCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F2661C3602AE0008DEA4 /* NavigationIOCViewController.swift */; };
-		0239F2871C3602AE0008DEA4 /* PanoramaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F26D1C3602AE0008DEA4 /* PanoramaViewController.swift */; };
 		0239F2891C3602AE0008DEA4 /* NavigationWaypointActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F2701C3602AE0008DEA4 /* NavigationWaypointActionView.swift */; };
 		0239F28A1C3602AE0008DEA4 /* NavigationWaypointActionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0239F2711C3602AE0008DEA4 /* NavigationWaypointActionView.xib */; };
 		0239F28B1C3602AE0008DEA4 /* NavigationWaypointConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0239F2721C3602AE0008DEA4 /* NavigationWaypointConfigView.swift */; };
@@ -100,6 +90,7 @@
 		386F685D1BF6BF27003A8ED0 /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386F685C1BF6BF27003A8ED0 /* StartupViewController.swift */; };
 		38CE482A1C000D3E00AA190D /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CE48291C000D3E00AA190D /* LogHelper.swift */; };
 		38F395FF1C408A9B00EB7E52 /* ComponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F395FE1C408A9B00EB7E52 /* ComponentsViewController.swift */; };
+		64F6CE06B0B4BE68413C079B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A993CCA687AC59C4AB1797E /* Pods.framework */; };
 		B82541F01C98E7180021CDDF /* DJISDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B82541E51C98E69E0021CDDF /* DJISDK.framework */; };
 		B82541F11C98E7180021CDDF /* DJISDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B82541E51C98E69E0021CDDF /* DJISDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B82541F21C98E7270021CDDF /* VideoPreviewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B82541E41C98E6700021CDDF /* VideoPreviewer.framework */; };
@@ -139,11 +130,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0239F1CB1C332D400008DEA4 /* CustomMissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomMissionViewController.swift; path = Missions/CustomMission/CustomMissionViewController.swift; sourceTree = "<group>"; };
-		0239F1CD1C332D400008DEA4 /* DJICollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DJICollectionViewCell.swift; path = Missions/CustomMission/DJICollectionViewCell.swift; sourceTree = "<group>"; };
-		0239F1CE1C332D400008DEA4 /* DJICollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DJICollectionViewCell.xib; path = Missions/CustomMission/DJICollectionViewCell.xib; sourceTree = "<group>"; };
-		0239F1CF1C332D400008DEA4 /* DJIStepsCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DJIStepsCollectionView.swift; path = Missions/CustomMission/DJIStepsCollectionView.swift; sourceTree = "<group>"; };
-		0239F1D01C332D400008DEA4 /* DJIStepsCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DJIStepsCollectionView.xib; path = Missions/CustomMission/DJIStepsCollectionView.xib; sourceTree = "<group>"; };
 		0239F2391C3336500008DEA4 /* DJIAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJIAnnotation.swift; sourceTree = "<group>"; };
 		0239F23A1C3336500008DEA4 /* DJIAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJIAnnotationView.swift; sourceTree = "<group>"; };
 		0239F23B1C3336500008DEA4 /* DJIPOIAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DJIPOIAnnotationView.swift; sourceTree = "<group>"; };
@@ -153,12 +139,7 @@
 		0239F24F1C338C660008DEA4 /* DJIWaypointAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DJIWaypointAnnotationView.swift; path = Missions/IOC/DJIWaypointAnnotationView.swift; sourceTree = "<group>"; };
 		0239F2521C338C740008DEA4 /* DJIAircraftAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DJIAircraftAnnotation.swift; path = Missions/HotPoint/DJIAircraftAnnotation.swift; sourceTree = "<group>"; };
 		0239F2531C338C740008DEA4 /* DJIAircraftAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DJIAircraftAnnotationView.swift; path = Missions/HotPoint/DJIAircraftAnnotationView.swift; sourceTree = "<group>"; };
-		0239F25A1C3602AE0008DEA4 /* NavigationFollowMeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationFollowMeViewController.swift; sourceTree = "<group>"; };
-		0239F25F1C3602AE0008DEA4 /* HotPointConfigView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HotPointConfigView.swift; sourceTree = "<group>"; };
-		0239F2601C3602AE0008DEA4 /* HotPointConfigView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotPointConfigView.xib; sourceTree = "<group>"; };
-		0239F2611C3602AE0008DEA4 /* NavigationHotPointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationHotPointViewController.swift; sourceTree = "<group>"; };
 		0239F2661C3602AE0008DEA4 /* NavigationIOCViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationIOCViewController.swift; path = ../../../Missions/IOC/NavigationIOCViewController.swift; sourceTree = "<group>"; };
-		0239F26D1C3602AE0008DEA4 /* PanoramaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanoramaViewController.swift; sourceTree = "<group>"; };
 		0239F2701C3602AE0008DEA4 /* NavigationWaypointActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationWaypointActionView.swift; sourceTree = "<group>"; };
 		0239F2711C3602AE0008DEA4 /* NavigationWaypointActionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavigationWaypointActionView.xib; sourceTree = "<group>"; };
 		0239F2721C3602AE0008DEA4 /* NavigationWaypointConfigView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationWaypointConfigView.swift; sourceTree = "<group>"; };
@@ -224,6 +205,7 @@
 		02E214D51CC6FD0B00B53188 /* GimbalCapabilityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GimbalCapabilityViewController.xib; sourceTree = "<group>"; };
 		02E214DE1CC7055500B53188 /* JoyStickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JoyStickView.swift; path = DJISDKSwiftDemo/Components/FlightController/Joystick/JoyStickView.swift; sourceTree = SOURCE_ROOT; };
 		02E214DF1CC7055500B53188 /* NavigationJoystickViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationJoystickViewController.swift; path = DJISDKSwiftDemo/Components/FlightController/Joystick/NavigationJoystickViewController.swift; sourceTree = SOURCE_ROOT; };
+		1A993CCA687AC59C4AB1797E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		386F68321BF68B41003A8ED0 /* DJISDKSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DJISDKSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		386F683A1BF68B41003A8ED0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		386F683C1BF68B41003A8ED0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -234,6 +216,8 @@
 		386F685C1BF6BF27003A8ED0 /* StartupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
 		38CE48291C000D3E00AA190D /* LogHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogHelper.swift; sourceTree = "<group>"; };
 		38F395FE1C408A9B00EB7E52 /* ComponentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ComponentsViewController.swift; path = Components/ComponentsViewController.swift; sourceTree = "<group>"; };
+		81320723135E66617C416A03 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		A928449844F6A6D8B33CBB53 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B82541DF1C98E6700021CDDF /* VideoPreviewer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VideoPreviewer.xcodeproj; path = ../VideoPreviewer/VideoPreviewer.xcodeproj; sourceTree = "<group>"; };
 		B82541E51C98E69E0021CDDF /* DJISDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DJISDK.framework; path = ../DJISDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -245,6 +229,7 @@
 			files = (
 				B82541F21C98E7270021CDDF /* VideoPreviewer.framework in Frameworks */,
 				B82541F01C98E7180021CDDF /* DJISDK.framework in Frameworks */,
+				64F6CE06B0B4BE68413C079B /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,27 +239,11 @@
 		0239F1CA1C3321220008DEA4 /* Missions */ = {
 			isa = PBXGroup;
 			children = (
-				0239F1D71C332D450008DEA4 /* CustomMission */,
-				0239F2591C3602AE0008DEA4 /* FollowMe */,
-				0239F25C1C3602AE0008DEA4 /* HotPoint */,
-				0239F26C1C3602AE0008DEA4 /* Panorama */,
 				0239F26F1C3602AE0008DEA4 /* Waypoint */,
 				0239F2471C333DA30008DEA4 /* DJIBaseViewController.swift */,
 				0239F1DE1C3336240008DEA4 /* DJIMapView */,
 			);
 			name = Missions;
-			sourceTree = "<group>";
-		};
-		0239F1D71C332D450008DEA4 /* CustomMission */ = {
-			isa = PBXGroup;
-			children = (
-				0239F1CB1C332D400008DEA4 /* CustomMissionViewController.swift */,
-				0239F1CD1C332D400008DEA4 /* DJICollectionViewCell.swift */,
-				0239F1CE1C332D400008DEA4 /* DJICollectionViewCell.xib */,
-				0239F1CF1C332D400008DEA4 /* DJIStepsCollectionView.swift */,
-				0239F1D01C332D400008DEA4 /* DJIStepsCollectionView.xib */,
-			);
-			name = CustomMission;
 			sourceTree = "<group>";
 		};
 		0239F1DE1C3336240008DEA4 /* DJIMapView */ = {
@@ -299,35 +268,6 @@
 			);
 			name = DJIAnnotationViews;
 			path = Missions/DJIMapView/DJIAnnotationViews;
-			sourceTree = "<group>";
-		};
-		0239F2591C3602AE0008DEA4 /* FollowMe */ = {
-			isa = PBXGroup;
-			children = (
-				0239F25A1C3602AE0008DEA4 /* NavigationFollowMeViewController.swift */,
-			);
-			name = FollowMe;
-			path = Missions/FollowMe;
-			sourceTree = "<group>";
-		};
-		0239F25C1C3602AE0008DEA4 /* HotPoint */ = {
-			isa = PBXGroup;
-			children = (
-				0239F25F1C3602AE0008DEA4 /* HotPointConfigView.swift */,
-				0239F2601C3602AE0008DEA4 /* HotPointConfigView.xib */,
-				0239F2611C3602AE0008DEA4 /* NavigationHotPointViewController.swift */,
-			);
-			name = HotPoint;
-			path = Missions/HotPoint;
-			sourceTree = "<group>";
-		};
-		0239F26C1C3602AE0008DEA4 /* Panorama */ = {
-			isa = PBXGroup;
-			children = (
-				0239F26D1C3602AE0008DEA4 /* PanoramaViewController.swift */,
-			);
-			name = Panorama;
-			path = Missions/Panorama;
 			sourceTree = "<group>";
 		};
 		0239F26F1C3602AE0008DEA4 /* Waypoint */ = {
@@ -682,6 +622,7 @@
 				386F68341BF68B41003A8ED0 /* DJISDKSwiftDemo */,
 				386F684C1BF68C58003A8ED0 /* Frameworks */,
 				386F68331BF68B41003A8ED0 /* Products */,
+				E916A02E899397954C911E59 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -721,6 +662,7 @@
 			children = (
 				B82541E51C98E69E0021CDDF /* DJISDK.framework */,
 				B82541DF1C98E6700021CDDF /* VideoPreviewer.xcodeproj */,
+				1A993CCA687AC59C4AB1797E /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -767,6 +709,15 @@
 			name = Components;
 			sourceTree = "<group>";
 		};
+		E916A02E899397954C911E59 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A928449844F6A6D8B33CBB53 /* Pods.debug.xcconfig */,
+				81320723135E66617C416A03 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -774,10 +725,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 386F68441BF68B41003A8ED0 /* Build configuration list for PBXNativeTarget "DJISDKSwiftDemo" */;
 			buildPhases = (
+				42C34D04F6935A05D64B3E1D /* Check Pods Manifest.lock */,
 				386F682E1BF68B41003A8ED0 /* Sources */,
 				386F682F1BF68B41003A8ED0 /* Frameworks */,
 				386F68301BF68B41003A8ED0 /* Resources */,
 				B89750BA1C65951800815416 /* Embed Frameworks */,
+				62F45E69CC409346C5C2C9B1 /* Embed Pods Frameworks */,
+				7A1654ED198F1EC824BDF3F8 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -801,6 +755,7 @@
 				TargetAttributes = {
 					386F68311BF68B41003A8ED0 = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = V6L68Y6TX6;
 					};
 				};
 			};
@@ -846,7 +801,6 @@
 				0264D3F91C402CC8002313FE /* RCParingViewController.xib in Resources */,
 				0271B3FB1C3DF6900056DB2B /* FCOrientationViewController.xib in Resources */,
 				02D8CC1C1C3B418500D2106D /* CameraPlaybackDownloadViewController.xib in Resources */,
-				0239F1D61C332D400008DEA4 /* DJIStepsCollectionView.xib in Resources */,
 				0271B3F41C3DF6900056DB2B /* FCCompassViewController.xib in Resources */,
 				0271B3F71C3DF6900056DB2B /* FCFlightLimitationViewController.xib in Resources */,
 				0271B3F91C3DF6900056DB2B /* FCLandingGearViewController.xib in Resources */,
@@ -864,8 +818,6 @@
 				0239F28A1C3602AE0008DEA4 /* NavigationWaypointActionView.xib in Resources */,
 				02D044091C974F0E007AD0C7 /* FCIntelligentAssistantViewController.xib in Resources */,
 				0264D3FF1C403365002313FE /* FCGeneralControlViewController.xib in Resources */,
-				0239F1D41C332D400008DEA4 /* DJICollectionViewCell.xib in Resources */,
-				0239F27D1C3602AE0008DEA4 /* HotPointConfigView.xib in Resources */,
 				0239F28C1C3602AE0008DEA4 /* NavigationWaypointConfigView.xib in Resources */,
 				02D8CC2A1C3B418500D2106D /* DemoGetSetViewController.xib in Resources */,
 				02D8CC221C3B418500D2106D /* CameraShootSinglePhotoViewController.xib in Resources */,
@@ -876,6 +828,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		42C34D04F6935A05D64B3E1D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		62F45E69CC409346C5C2C9B1 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7A1654ED198F1EC824BDF3F8 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		386F682E1BF68B41003A8ED0 /* Sources */ = {
@@ -906,7 +906,6 @@
 				0239F2551C338C740008DEA4 /* DJIAircraftAnnotationView.swift in Sources */,
 				0271B3F61C3DF6900056DB2B /* FCFlightLimitationViewController.swift in Sources */,
 				02D8CC2E1C3B418500D2106D /* DemoTableViewController.swift in Sources */,
-				0239F1D11C332D400008DEA4 /* CustomMissionViewController.swift in Sources */,
 				0264D3F61C402CC8002313FE /* RCHardwareStateViewController.swift in Sources */,
 				0264D3F51C402CC8002313FE /* RCActionsTableViewController.swift in Sources */,
 				0239F2431C3336500008DEA4 /* DJIMapView.swift in Sources */,
@@ -915,13 +914,11 @@
 				0239F28F1C3602AE0008DEA4 /* NavigationWaypointViewController.swift in Sources */,
 				02E214E01CC7055500B53188 /* JoyStickView.swift in Sources */,
 				0264D3E91C402CB0002313FE /* SetGetChannelViewController.swift in Sources */,
-				0239F1D31C332D400008DEA4 /* DJICollectionViewCell.swift in Sources */,
 				0264D3F81C402CC8002313FE /* RCParingViewController.swift in Sources */,
 				0239F2491C333DA30008DEA4 /* DJIBaseViewController.swift in Sources */,
 				02D044081C974F0E007AD0C7 /* FCIntelligentAssistantViewController.swift in Sources */,
 				02E214E11CC7055500B53188 /* NavigationJoystickViewController.swift in Sources */,
 				386F685D1BF6BF27003A8ED0 /* StartupViewController.swift in Sources */,
-				0239F27C1C3602AE0008DEA4 /* HotPointConfigView.swift in Sources */,
 				0239F28B1C3602AE0008DEA4 /* NavigationWaypointConfigView.swift in Sources */,
 				0264D3FE1C403365002313FE /* FCGeneralControlViewController.swift in Sources */,
 				0264D4091C40666D002313FE /* HandheldControllerActionsTableViewController.swift in Sources */,
@@ -929,9 +926,7 @@
 				0239F2891C3602AE0008DEA4 /* NavigationWaypointActionView.swift in Sources */,
 				0239F2401C3336500008DEA4 /* DJIAnnotation.swift in Sources */,
 				02D8CC291C3B418500D2106D /* DemoGetSetViewController.swift in Sources */,
-				0239F2871C3602AE0008DEA4 /* PanoramaViewController.swift in Sources */,
 				0271B3F31C3DF6900056DB2B /* FCCompassViewController.swift in Sources */,
-				0239F2781C3602AE0008DEA4 /* NavigationFollowMeViewController.swift in Sources */,
 				02D8CC2D1C3B418500D2106D /* DemoSettingItem.swift in Sources */,
 				386F68561BF6BAA4003A8ED0 /* Extensions.swift in Sources */,
 				0239F2541C338C740008DEA4 /* DJIAircraftAnnotation.swift in Sources */,
@@ -941,11 +936,9 @@
 				0239F2821C3602AE0008DEA4 /* NavigationIOCViewController.swift in Sources */,
 				02D8CC321C3B418500D2106D /* GimbalRotationInSpeedViewController.swift in Sources */,
 				0239F2421C3336500008DEA4 /* DJIPOIAnnotationView.swift in Sources */,
-				0239F27E1C3602AE0008DEA4 /* NavigationHotPointViewController.swift in Sources */,
 				0271B3F51C3DF6900056DB2B /* FCActionsTableViewController.swift in Sources */,
 				0264D40A1C40666D002313FE /* SleepModeViewController.swift in Sources */,
 				02D8CC231C3B418500D2106D /* CameraPushInfoViewController.swift in Sources */,
-				0239F1D51C332D400008DEA4 /* DJIStepsCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1064,9 +1057,12 @@
 		};
 		386F68451BF68B41003A8ED0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A928449844F6A6D8B33CBB53 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1078,16 +1074,20 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dji.swiftSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kildir.gdir;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
 		386F68461BF68B41003A8ED0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 81320723135E66617C416A03 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1099,8 +1099,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dji.swiftSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kildir.gdir;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

@@ -20,7 +20,7 @@ class StartupViewController: DJIBaseViewController {
     var connectedProduct:DJIBaseProduct?=nil
     var componentDictionary = Dictionary<String, Array<DJIBaseComponent>>()
     
-    let APP_KEY = ""//Please enter App Key Here
+    let APP_KEY = "366901825e06f0fcf1362f28"//Please enter App Key Here
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +35,11 @@ class StartupViewController: DJIBaseViewController {
     }
     
     func initUI() {
-        self.title = "DJI iOS SDK Sample"
+        self.title = "GDIR"
         sdkVersionLabel.text = "DJI SDK Version: \(DJISDKManager.getSDKVersion())"
-        openComponents.enabled = false;
-        productModel.hidden = true
-        productFirmwarePackageVersion.hidden = true
+        //openComponents.enabled = false;
+        //productModel.hidden = true
+        //productFirmwarePackageVersion.hidden = true
     }
     
     func showAlert(msg: String?) {
@@ -79,8 +79,8 @@ extension StartupViewController : DJISDKManagerDelegate
         guard let newProduct = newProduct else
         {
             productConnectionStatus.text = "Status: No Product Connected"
-            openComponents.enabled = false;
-            openComponents.alpha = 0.8;
+            //openComponents.enabled = false;
+            //openComponents.alpha = 0.8;
             logDebug("Product Disconnected")
             return
         }
@@ -102,8 +102,8 @@ extension StartupViewController : DJISDKManagerDelegate
         productConnectionStatus.text = "Status: Product Connected"
         
         ConnectedProductManager.sharedInstance.connectedProduct = newProduct
-        openComponents.enabled = true;
-        openComponents.alpha = 1.0;
+        //openComponents.enabled = true;
+        //openComponents.alpha = 1.0;
         logDebug("Product Connected")
 
     }
