@@ -95,6 +95,7 @@
 		B82541F11C98E7180021CDDF /* DJISDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B82541E51C98E69E0021CDDF /* DJISDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B82541F21C98E7270021CDDF /* VideoPreviewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B82541E41C98E6700021CDDF /* VideoPreviewer.framework */; };
 		B82541F31C98E7270021CDDF /* VideoPreviewer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B82541E41C98E6700021CDDF /* VideoPreviewer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D2F2BD951D48F4FC0085871F /* SequoiaCameraSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F2BD941D48F4FC0085871F /* SequoiaCameraSettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -220,6 +221,7 @@
 		A928449844F6A6D8B33CBB53 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B82541DF1C98E6700021CDDF /* VideoPreviewer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VideoPreviewer.xcodeproj; path = ../VideoPreviewer/VideoPreviewer.xcodeproj; sourceTree = "<group>"; };
 		B82541E51C98E69E0021CDDF /* DJISDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DJISDK.framework; path = ../DJISDK.framework; sourceTree = "<group>"; };
+		D2F2BD941D48F4FC0085871F /* SequoiaCameraSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequoiaCameraSettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -489,6 +491,7 @@
 				02D8CBF81C3B418500D2106D /* SetGetISO */,
 				02D8CBFA1C3B418500D2106D /* ShootSinglePhoto */,
 				02D8CBFD1C3B418500D2106D /* SystemPushInfo */,
+				D2F2BD941D48F4FC0085871F /* SequoiaCameraSettingsViewController.swift */,
 			);
 			name = Camera;
 			path = Components/Camera;
@@ -890,6 +893,7 @@
 				0271B3F11C3DF6900056DB2B /* AirLinkActionsTableViewController.swift in Sources */,
 				02D8CC161C3B418500D2106D /* CameraActionsTableViewController.swift in Sources */,
 				0264D4101C407DE2002313FE /* CameraFPVViewController.swift in Sources */,
+				D2F2BD951D48F4FC0085871F /* SequoiaCameraSettingsViewController.swift in Sources */,
 				02D8CC211C3B418500D2106D /* CameraShootSinglePhotoViewController.swift in Sources */,
 				0239F28D1C3602AE0008DEA4 /* NavigationWaypointMissionConfigView.swift in Sources */,
 				0264D3E71C402CB0002313FE /* RebootWiFiViewController.swift in Sources */,

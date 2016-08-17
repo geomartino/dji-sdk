@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gme-nO-FVE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gme-nO-FVE">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -544,10 +544,10 @@
             </objects>
             <point key="canvasLocation" x="2596" y="612"/>
         </scene>
-        <!--View Controller-->
+        <!--Sequoia Camera Settings View Controller-->
         <scene sceneID="K2Q-lL-3PM">
             <objects>
-                <viewController id="M4L-TF-1Ao" sceneMemberID="viewController">
+                <viewController id="M4L-TF-1Ao" customClass="SequoiaCameraSettingsViewController" customModule="DJISDKSwiftDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="znr-5N-j0e"/>
                         <viewControllerLayoutGuide type="bottom" id="rUi-OF-57a"/>
@@ -559,63 +559,84 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Camera Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ROB-yr-yjX">
                                 <rect key="frame" x="20" y="28" width="259" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="I4u-tI-Hyd">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="I4u-tI-Hyd">
                                 <rect key="frame" x="189" y="74" width="121" height="29"/>
                                 <segments>
                                     <segment title="Internal"/>
                                     <segment title="SD"/>
                                 </segments>
+                                <connections>
+                                    <action selector="BntStorageTypeToggle:" destination="M4L-TF-1Ao" eventType="valueChanged" id="mvh-fS-PxP"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Take picture every" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4we-TT-eO1">
                                 <rect key="frame" x="20" y="127" width="124" height="21"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="oTC-yA-f6H">
                                 <rect key="frame" x="146" y="123" width="35" height="30"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R3O-2Z-Nwc">
-                                <rect key="frame" x="146" y="170" width="64" height="34.5"/>
+                                <rect key="frame" x="249" y="184" width="102" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <state key="normal" title="Take" backgroundImage="btn">
+                                <state key="normal" title="Start Capture" backgroundImage="btn">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="BntTakeOne:" destination="M4L-TF-1Ao" eventType="touchUpInside" id="XI3-dm-rha"/>
                                     <action selector="onEditButtonClicked:" destination="2Uk-bI-ut8" eventType="touchUpInside" id="hoY-7N-IZE"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Manual capture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kOv-LG-Bgd">
-                                <rect key="frame" x="20" y="178" width="118" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="Rky-l6-Nis">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Rky-l6-Nis">
                                 <rect key="frame" x="189" y="124" width="121" height="29"/>
                                 <segments>
                                     <segment title="meters"/>
                                     <segment title="seconds"/>
                                 </segments>
+                                <connections>
+                                    <action selector="BntUnitsToggle:" destination="M4L-TF-1Ao" eventType="valueChanged" id="IVR-6d-P4H"/>
+                                </connections>
                             </segmentedControl>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NvT-jU-AFO">
-                                <rect key="frame" x="20" y="216" width="560" height="364"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Storage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXX-Qr-iam">
                                 <rect key="frame" x="20" y="74" width="118" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="I6b-Vx-s5c">
+                                <rect key="frame" x="318" y="123" width="51" height="31"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
+                                <connections>
+                                    <action selector="BntActiveFlightPress:" destination="M4L-TF-1Ao" eventType="valueChanged" id="5UN-gU-i9h"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="BntActiveFlight" destination="I6b-Vx-s5c" id="xAa-dP-jxI"/>
+                        <outlet property="BntStorageType" destination="I4u-tI-Hyd" id="hbb-jT-kh3"/>
+                        <outlet property="BntTakeOne" destination="R3O-2Z-Nwc" id="NZh-y5-9AG"/>
+                        <outlet property="BntUnits" destination="Rky-l6-Nis" id="wUk-ZZ-OPq"/>
+                        <outlet property="LblPictureMode" destination="4we-TT-eO1" id="4BS-8K-4BU"/>
+                        <outlet property="TxtUnitQuantity" destination="oTC-yA-f6H" id="Vtl-tI-goo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="62v-A4-eDB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
