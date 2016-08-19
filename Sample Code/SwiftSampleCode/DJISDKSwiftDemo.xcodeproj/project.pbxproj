@@ -96,6 +96,8 @@
 		B82541F21C98E7270021CDDF /* VideoPreviewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B82541E41C98E6700021CDDF /* VideoPreviewer.framework */; };
 		B82541F31C98E7270021CDDF /* VideoPreviewer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B82541E41C98E6700021CDDF /* VideoPreviewer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D2F2BD951D48F4FC0085871F /* SequoiaCameraSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F2BD941D48F4FC0085871F /* SequoiaCameraSettingsViewController.swift */; };
+		D8C4378D1D65E301001D6C3A /* MissionSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C4378C1D65E301001D6C3A /* MissionSettingsViewController.swift */; };
+		D8C4378F1D65FFA8001D6C3A /* WaypointSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C4378E1D65FFA8001D6C3A /* WaypointSettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -222,6 +224,8 @@
 		B82541DF1C98E6700021CDDF /* VideoPreviewer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VideoPreviewer.xcodeproj; path = ../VideoPreviewer/VideoPreviewer.xcodeproj; sourceTree = "<group>"; };
 		B82541E51C98E69E0021CDDF /* DJISDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DJISDK.framework; path = ../DJISDK.framework; sourceTree = "<group>"; };
 		D2F2BD941D48F4FC0085871F /* SequoiaCameraSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequoiaCameraSettingsViewController.swift; sourceTree = "<group>"; };
+		D8C4378C1D65E301001D6C3A /* MissionSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MissionSettingsViewController.swift; path = Missions/MissionSettingsViewController.swift; sourceTree = "<group>"; };
+		D8C4378E1D65FFA8001D6C3A /* WaypointSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointSettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +248,7 @@
 				0239F26F1C3602AE0008DEA4 /* Waypoint */,
 				0239F2471C333DA30008DEA4 /* DJIBaseViewController.swift */,
 				0239F1DE1C3336240008DEA4 /* DJIMapView */,
+				D8C4378C1D65E301001D6C3A /* MissionSettingsViewController.swift */,
 			);
 			name = Missions;
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 		0239F26F1C3602AE0008DEA4 /* Waypoint */ = {
 			isa = PBXGroup;
 			children = (
+				D8C4378E1D65FFA8001D6C3A /* WaypointSettingsViewController.swift */,
 				0239F2701C3602AE0008DEA4 /* NavigationWaypointActionView.swift */,
 				0239F2711C3602AE0008DEA4 /* NavigationWaypointActionView.xib */,
 				0239F2721C3602AE0008DEA4 /* NavigationWaypointConfigView.swift */,
@@ -907,11 +913,13 @@
 				38CE482A1C000D3E00AA190D /* LogHelper.swift in Sources */,
 				02D8CC1D1C3B418500D2106D /* CameraPlaybackPushInfoViewController.swift in Sources */,
 				02E214D61CC6FD0B00B53188 /* DJIGimbal+CapabilityCheck.swift in Sources */,
+				D8C4378F1D65FFA8001D6C3A /* WaypointSettingsViewController.swift in Sources */,
 				0239F2551C338C740008DEA4 /* DJIAircraftAnnotationView.swift in Sources */,
 				0271B3F61C3DF6900056DB2B /* FCFlightLimitationViewController.swift in Sources */,
 				02D8CC2E1C3B418500D2106D /* DemoTableViewController.swift in Sources */,
 				0264D3F61C402CC8002313FE /* RCHardwareStateViewController.swift in Sources */,
 				0264D3F51C402CC8002313FE /* RCActionsTableViewController.swift in Sources */,
+				D8C4378D1D65E301001D6C3A /* MissionSettingsViewController.swift in Sources */,
 				0239F2431C3336500008DEA4 /* DJIMapView.swift in Sources */,
 				02D8CC2B1C3B418500D2106D /* DemoPushInfoViewController.swift in Sources */,
 				386F68591BF6BED7003A8ED0 /* AppDelegate.swift in Sources */,

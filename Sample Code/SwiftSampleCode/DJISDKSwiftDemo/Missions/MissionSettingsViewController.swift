@@ -1,107 +1,48 @@
 //
-//  GroundStationTestViewController.h
-//  DJISdkDemo
+//  MissionSettingsViewController.swift
+//  DJISDKSwiftDemo
 //
-//  Created by DJI on 14-7-16.
-//  Copyright (c) 2014 DJI. All rights reserved.
+//  Created by Martin Ouellet on 2016-08-18.
+//  Copyright © 2016 DJI. All rights reserved.
 //
 import UIKit
-import MapKit
 import DJISDK
 import SwiftCSV
-let DEGREE_OF_THIRTY_METER = 0.0000899322 * 3
-//#define DEGREE(x) ((x)*180.0/M_PI)
+//let DEGREE_OF_THIRTY_METER = 0.0000899322 * 3
 
-extension String {
-    var floatValue: Float {
-        return (self as NSString).floatValue
-    }
-}
 
-class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControllerDelegate, MKMapViewDelegate, DJIMissionManagerDelegate, NavigationWaypointConfigViewDelegate, NSURLSessionDownloadDelegate, UIDocumentInteractionControllerDelegate {
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var tipsView: UIView!
-    @IBOutlet weak var addPinButton: UIBarButtonItem!
+class MissionSettingsViewController:  DJIBaseViewController, DJIFlightControllerDelegate, DJIMissionManagerDelegate, NavigationWaypointConfigViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, NSURLSessionDownloadDelegate, UIDocumentInteractionControllerDelegate {
+
+    @IBOutlet weak var downloadButton: UIButton!
+    @IBOutlet weak var uploadButton: UIButton!
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var pauseButton: UIButton!
+    @IBOutlet weak var resumeButton: UIButton!
+    @IBOutlet weak var missionPicker: UIPickerView!
+    
+    @IBOutlet weak var speedSlider: UISlider!
+    @IBOutlet weak var tipsLabel: UILabel!
     
     var progressAlertView: UIAlertView? = nil
-    public var isEditEnable: Bool = false
+    var isEditEnable: Bool = false
+    var waypointMission: DJIWaypointMission = DJIWaypointMission()
+    var waypointConfigView: NavigationWaypointConfigView = NavigationWaypointConfigView()
+    var waypointMissionConfigView: NavigationWaypointMissionConfigView? = nil
     var waypointList: [AnyObject]=[]
     var waypointAnnotations: [AnyObject]=[]
     var aircraftLocation: CLLocationCoordinate2D = kCLLocationCoordinate2DInvalid
-    var aircraftAnnotation: DJIAircraftAnnotation? = nil
-    var waypointConfigView: NavigationWaypointConfigView = NavigationWaypointConfigView()
-    var waypointMissionConfigView: NavigationWaypointMissionConfigView? = nil
-    var tapGesture: UITapGestureRecognizer? = nil
-    var currentState: DJIFlightControllerCurrentState? = nil
-    var waypointMission: DJIWaypointMission = DJIWaypointMission()
-    var djiMapView: DJIMapView? = nil
     var missionManager:DJIMissionManager = DJIMissionManager.sharedInstance()!
-    var defaultButtonColor: UIColor? = nil
     
-    var filesArray = ["FirstMission", "GDIR_PlanVolChampCarrier1"]
-    var indexSelected = 0
     var downloadTask: NSURLSessionDownloadTask!
     var backgroundSession: NSURLSession!
+    var filesArray = ["FirstMission", "GDIR_PlanVolChampCarrier1"]
+    var indexSelected = 0
+    var currentState: DJIFlightControllerCurrentState? = nil
     
-    public func setNavTitle(title: String){
-            self.title = title
-    }
-    
-    @IBAction func addPinButtonClicked(sender: AnyObject) {
-        let mybutton = sender as! UIBarButtonItem
-        
-        if (self.defaultButtonColor === nil){
-            self.defaultButtonColor = self.view.tintColor
-        }
-        
-        self.isEditEnable = !self.isEditEnable
-        if self.isEditEnable {
-            self.waypointConfigView.center = self.view.center
-            self.waypointConfigView.waypointList = self.waypointList
-            UIView.animateWithDuration(0.25, animations: {() -> Void in
-                self.waypointConfigView.alpha = 1
-            })
-            
-            //mybutton.tintColor = UIColor.purpleColor()
-
-            self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(NavigationWaypointViewController.onMapViewTap(_:)))
-            self.view!.addGestureRecognizer(self.tapGesture!)
-            //sender.setTitle("Finished", forState: .Normal)
-        }
-        else {
-            //sender.setTitle("Add Waypoint", forState: .Normal)
-            //mybutton.tintColor = self.defaultButtonColor
-            if (self.tapGesture != nil) {
-                self.view!.removeGestureRecognizer(self.tapGesture!)
-                self.tapGesture = nil
-            }
-        }
-        
-    }
-    
-    @IBAction func onBackButtonClicked(sender: AnyObject) {
-        self.navigationController!.popViewControllerAnimated(true)
-    }
-
-    @IBAction func onMissionConfigButtonClicked(sender: AnyObject) {
-        var frame = self.waypointMissionConfigView?.frame
-        frame?.size.width = self.view.frame.width
-        self.waypointMissionConfigView?.frame = frame!
-        frame = self.waypointMissionConfigView?.finishActionScroll.frame
-        frame?.size.width = self.view.frame.width - frame!.origin.x * 2
-        self.waypointMissionConfigView?.finishActionScroll.frame = frame!
-        self.waypointMissionConfigView?.finishActionScroll.contentSize = (self.waypointMissionConfigView?.finishActionSeg.frame.size)!
-        self.waypointMissionConfigView!.center = self.view.center
-        
-        
-        UIView.animateWithDuration(0.25, animations: {() -> Void in
-            self.waypointMissionConfigView!.alpha = 1
-        })
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setNavTitle("No Mission Selected")
+
         self.waypointList = [AnyObject]()
         self.waypointAnnotations = [AnyObject]()
         self.isEditEnable = false
@@ -113,62 +54,147 @@ class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControll
         self.waypointMissionConfigView!.alpha = 0
         self.waypointMissionConfigView!.okButton.addTarget(self, action: #selector(NavigationWaypointViewController.onMissionConfigOKButtonClicked(_:)), forControlEvents: .TouchUpInside)
         self.view!.addSubview(self.waypointMissionConfigView!)
-               mapView.mapType = MKMapType.Hybrid
-        self.djiMapView = DJIMapView(mapView: mapView)
+        self.tipsLabel.layer.cornerRadius = 5.0
+        self.tipsLabel.layer.backgroundColor = UIColor.whiteColor().CGColor
         
         let backgroundSessionConfiguration = NSURLSessionConfiguration.backgroundSessionConfigurationWithIdentifier("backgroundSession")
         backgroundSession = NSURLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: NSOperationQueue.mainQueue())
         //progressView.setProgress(0.0, animated: false)
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        let aircraft: DJIAircraft? = self.fetchAircraft()
-        if aircraft != nil {
-            aircraft!.flightController?.delegate = self
-        }
-        
-        self.missionManager.delegate = self
-    }
-
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController!.title = ""
-        self.navigationController!.navigationBarHidden = false
-        let aircraft: DJIAircraft? = self.fetchAircraft()
-        if aircraft != nil {
-            if aircraft!.flightController?.delegate === self {
-                aircraft!.flightController!.delegate = nil
-            }
-        }
-        
-
-        self.missionManager.delegate = nil
+        self.missionPicker.dataSource = self
+        self.missionPicker.delegate = self
+        //self.tipsLabel.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func onSpeedSliderTouchDown(sender: UISlider) {
+        self.tipsLabel.text = String(format: "%0.1fm/s", sender.value)
+    }
+    
+    @IBAction func onSpeedSliderTouchUp(sender: UISlider) {
+        DJIWaypointMission.setAutoFlightSpeed(sender.value, withCompletion: {[weak self] (error: NSError?) -> Void in
+            self?.showAlertResult("Set auto flight speed(\(sender.value)m/s):\(error?.description)")
+            })
+    }
+    
+    @IBAction func onSpeedSliderValueChanged(sender: UISlider) {
+        self.tipsLabel.text = String(format: "%0.1fm/s", sender.value)
+    }
 
-    func getCornerRadius(pointA: DJIWaypoint?, middleWaypoint pointB: DJIWaypoint?, nextWaypoint pointC: DJIWaypoint?) -> CGFloat {
-        if pointA == nil || pointB == nil || pointC == nil {
-            return 2.0
-        }
-        let loc1: CLLocation = CLLocation(latitude: pointA!.coordinate.latitude, longitude: pointA!.coordinate.longitude)
-        let loc2: CLLocation = CLLocation(latitude: pointB!.coordinate.latitude, longitude: pointB!.coordinate.longitude)
-        let loc3: CLLocation = CLLocation(latitude: pointC!.coordinate.latitude, longitude: pointC!.coordinate.longitude)
-        let d1: CLLocationDistance = loc2.distanceFromLocation(loc1)
-        let d2: CLLocationDistance = loc2.distanceFromLocation(loc3)
-        var dmin: CLLocationDistance = min(d1, d2)
-        if dmin < 1.0 {
-            dmin = 1.0
+    
+    @IBAction func downloadButtonClicked(sender: AnyObject) {
+        self.missionPicker.hidden = false
+        self.downloadButton.enabled = false
+    }
+    
+    @IBAction func uploadButtonClicked(sender: AnyObject) {
+        if CLLocationCoordinate2DIsValid(self.aircraftLocation) {
+            self.updateMission()
+            
+            self.missionManager.prepareMission(self.waypointMission, withProgress:
+                {[weak self] (progress: Float) -> Void in
+                    
+                    let message: String = "Mission Uploading:\(Int(100 * progress))%"
+                    if self?.progressAlertView == nil {
+                        self?.progressAlertView = UIAlertView(title: nil, message: message, delegate: nil, cancelButtonTitle:nil)
+                        self?.progressAlertView!.show()
+                    }
+                    else {
+                        self?.progressAlertView!.message = message
+                    }
+                    if progress == 1.0 {
+                        self?.progressAlertView!.dismissWithClickedButtonIndex(0, animated: true)
+                        self?.progressAlertView = nil
+                    }
+                }, withCompletion:{[weak self] (error: NSError?) -> Void in
+                    
+                    if self?.progressAlertView != nil  {
+                        self?.progressAlertView!.dismissWithClickedButtonIndex(0, animated: true)
+                        self?.progressAlertView = nil
+                    }
+                    if (error != nil) {
+                        self?.showAlertResult("Upload Mission Result:\(error!.description)")
+                    }
+                })
         }
         else {
-            dmin = 1.0 + (dmin - 1.0) * 0.2
-            dmin = min(dmin, 10.0)
+            self.showAlertResult("Current Drone Location Invalid")
         }
-        return CGFloat(dmin)
+
+    }
+
+    
+    @IBAction func waypointConfigButtonClicked(sender: AnyObject) {
+        UIView.animateWithDuration(0.25, animations: {() -> Void in
+            self.waypointConfigView.alpha = 0
+        })
+    }
+   
+    
+    @IBAction func onWaypointConfigButtonClicked(sender: AnyObject) {
+        self.waypointConfigView.center = self.view.center
+        self.waypointConfigView.waypointList = self.waypointList
+        UIView.animateWithDuration(0.25, animations: {() -> Void in
+            self.waypointConfigView.alpha = 1
+        })
+    }
+    
+
+    
+    @IBAction func startButtonClicked(sender: AnyObject) {
+        self.missionManager.startMissionExecutionWithCompletion({[weak self] (error: NSError?) -> Void in
+            if (error != nil ) {
+                self?.showAlertResult("Start Mission:\(error!.description)")
+            }
+            })
+    }
+    
+    @IBAction func stopButtonClicked(sender: AnyObject) {
+        self.missionManager.stopMissionExecutionWithCompletion({[weak self] (error: NSError?) -> Void in
+            if (error != nil ) {
+                self?.showAlertResult("Stop Mission:\(error!.description)")
+            }
+            })
+    }
+    
+    
+    @IBAction func pauseButtonClicked(sender: AnyObject) {
+        self.missionManager.pauseMissionExecutionWithCompletion({[weak self] (error: NSError?) -> Void in
+            if (error != nil ) {
+                self?.showAlertResult("Pause Mission:\(error!.description)")
+            }
+            })
+    }
+    
+    @IBAction func resumeButtonClicked(sender: AnyObject) {
+        self.missionManager.resumeMissionExecutionWithCompletion({[weak self] (error: NSError?) -> Void in
+            if (error != nil ) {
+                self?.showAlertResult("Resume Mission:\(error!.description)")
+            }
+            })
+    }
+    
+    
+    func updateMission() {
+        self.waypointMission.maxFlightSpeed = CFloat(self.waypointMissionConfigView!.maxFlightSpeed.text!)!
+        self.waypointMission.autoFlightSpeed = CFloat(self.waypointMissionConfigView!.autoFlightSpeed.text!)!
+        self.waypointMission.finishedAction = DJIWaypointMissionFinishedAction(rawValue: UInt8(self.waypointMissionConfigView!.finishedAction.selectedSegmentIndex))!
+        self.waypointMission.headingMode = DJIWaypointMissionHeadingMode(rawValue: UInt(self.waypointMissionConfigView!.headingMode.selectedSegmentIndex))!
+        self.waypointMission.flightPathMode = DJIWaypointMissionFlightPathMode(rawValue: UInt(self.waypointMissionConfigView!.airlineMode.selectedSegmentIndex))!
+        self.waypointMission.removeAllWaypoints()
+        
+        let point = self.waypointList.first;
+        if (point != nil){
+            self.waypointList.append(point!)
+        }
+        self.waypointMission.addWaypoints(self.waypointList)
+        if self.waypointMission.flightPathMode == DJIWaypointMissionFlightPathMode.Curved {
+            self.calcCornerRadius()
+        }
     }
 
     func calcCornerRadius() {
@@ -187,7 +213,7 @@ class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControll
             wp.cornerRadiusInMeters = Float(self.getCornerRadius(prevWaypoint!, middleWaypoint: wp, nextWaypoint: nextWaypoint!))
         }
     }
-
+    
     func createWaypointMission() {
         let height: Float = 30.0
         self.waypointMission.removeAllWaypoints()
@@ -253,98 +279,134 @@ class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControll
             self.calcCornerRadius()
         }
     }
-
-    func updateMission() {
-        self.waypointMission.maxFlightSpeed = CFloat(self.waypointMissionConfigView!.maxFlightSpeed.text!)!
-        self.waypointMission.autoFlightSpeed = CFloat(self.waypointMissionConfigView!.autoFlightSpeed.text!)!
-        self.waypointMission.finishedAction = DJIWaypointMissionFinishedAction(rawValue: UInt8(self.waypointMissionConfigView!.finishedAction.selectedSegmentIndex))!
-        self.waypointMission.headingMode = DJIWaypointMissionHeadingMode(rawValue: UInt(self.waypointMissionConfigView!.headingMode.selectedSegmentIndex))!
-        self.waypointMission.flightPathMode = DJIWaypointMissionFlightPathMode(rawValue: UInt(self.waypointMissionConfigView!.airlineMode.selectedSegmentIndex))!
-        self.waypointMission.removeAllWaypoints()
-        
-        let point = self.waypointList.first;
-        if (point != nil){
-            self.waypointList.append(point!)
+    
+    func getCornerRadius(pointA: DJIWaypoint?, middleWaypoint pointB: DJIWaypoint?, nextWaypoint pointC: DJIWaypoint?) -> CGFloat {
+        if pointA == nil || pointB == nil || pointC == nil {
+            return 2.0
         }
-        self.waypointMission.addWaypoints(self.waypointList)
-        if self.waypointMission.flightPathMode == DJIWaypointMissionFlightPathMode.Curved {
-            self.calcCornerRadius()
+        let loc1: CLLocation = CLLocation(latitude: pointA!.coordinate.latitude, longitude: pointA!.coordinate.longitude)
+        let loc2: CLLocation = CLLocation(latitude: pointB!.coordinate.latitude, longitude: pointB!.coordinate.longitude)
+        let loc3: CLLocation = CLLocation(latitude: pointC!.coordinate.latitude, longitude: pointC!.coordinate.longitude)
+        let d1: CLLocationDistance = loc2.distanceFromLocation(loc1)
+        let d2: CLLocationDistance = loc2.distanceFromLocation(loc3)
+        var dmin: CLLocationDistance = min(d1, d2)
+        if dmin < 1.0 {
+            dmin = 1.0
         }
+        else {
+            dmin = 1.0 + (dmin - 1.0) * 0.2
+            dmin = min(dmin, 10.0)
+        }
+        return CGFloat(dmin)
     }
 
+    
     func onWaypointConfigOKButtonClicked(sender: AnyObject) {
         UIView.animateWithDuration(0.25, animations: {() -> Void in
             self.waypointConfigView.alpha = 0
-            self.view!.removeGestureRecognizer(self.tapGesture!)
-            self.tapGesture = nil
         })
     }
-
+    
     func onMissionConfigOKButtonClicked(sender: AnyObject) {
         UIView.animateWithDuration(0.25, animations: {() -> Void in
             self.waypointMissionConfigView!.alpha = 0
         })
     }
-
+    
     func configViewDidDeleteWaypointAtIndex(index: Int) {
         if index >= 0 && index < self.waypointAnnotations.count {
             let wpAnno: DJIWaypointAnnotation = self.waypointAnnotations[index] as! DJIWaypointAnnotation
             self.waypointAnnotations.removeAtIndex(index)
-            self.mapView.removeAnnotation(wpAnno)
+            NavigationWaypointViewController().mapView.removeAnnotation(wpAnno)
             for i in 0 ..< self.waypointAnnotations.count {
                 let wpAnno: DJIWaypointAnnotation = self.waypointAnnotations[i] as! DJIWaypointAnnotation
                 wpAnno.text = "\(i + 1)"
-                let annoView: DJIWaypointAnnotationView = self.mapView.viewForAnnotation(wpAnno) as! DJIWaypointAnnotationView
+                let annoView: DJIWaypointAnnotationView = NavigationWaypointViewController().mapView.viewForAnnotation(wpAnno) as! DJIWaypointAnnotationView
                 annoView.titleLabel!.text = wpAnno.text!
             }
         }
     }
-
+    
     func configViewDidDeleteAllWaypoints() {
         for i in 0 ..< self.waypointAnnotations.count {
             let wpAnno: DJIWaypointAnnotation = self.waypointAnnotations[i] as! DJIWaypointAnnotation
-            self.mapView.removeAnnotation(wpAnno)
+            NavigationWaypointViewController().mapView.removeAnnotation(wpAnno)
         }
         self.waypointAnnotations.removeAll()
         self.waypointList.removeAll()
     }
-
+    
     func onMapViewTap(tapGestureRecognizer: UIGestureRecognizer) {
         if self.isEditEnable {
-            let point: CGPoint = tapGestureRecognizer.locationInView(self.mapView)
-            let touchedCoordinate: CLLocationCoordinate2D = mapView.convertPoint(point, toCoordinateFromView: mapView)
+            let point: CGPoint = tapGestureRecognizer.locationInView(NavigationWaypointViewController().mapView)
+            let touchedCoordinate: CLLocationCoordinate2D = NavigationWaypointViewController().mapView.convertPoint(point, toCoordinateFromView: NavigationWaypointViewController().mapView)
             let waypoint: DJIWaypoint = DJIWaypoint(coordinate: touchedCoordinate)
             self.waypointList.append(waypoint)
             let wpAnnotation: DJIWaypointAnnotation = DJIWaypointAnnotation()
             wpAnnotation.coordinate = touchedCoordinate
             wpAnnotation.text = "\(Int(self.waypointList.count))"
-            self.mapView.addAnnotation(wpAnnotation)
+            NavigationWaypointViewController().mapView.addAnnotation(wpAnnotation)
             self.waypointAnnotations.append(wpAnnotation)
-            self.waypointConfigView.waypointList = self.waypointList
         }
     }
-
+    
     func missionManager(manager: DJIMissionManager, missionProgressStatus missionProgress: DJIMissionProgressStatus) {
         if (missionProgress is DJIWaypointMissionStatus) {
-//            var wpmissionStatus: DJIWaypointMissionStatus = missionProgress as! DJIWaypointMissionStatus
+            //            var wpmissionStatus: DJIWaypointMissionStatus = missionProgress as! DJIWaypointMissionStatus
         }
     }
-
+    
     func flightController(fc: DJIFlightController, didUpdateSystemState state: DJIFlightControllerCurrentState) {
         self.currentState = state
         self.aircraftLocation = state.aircraftLocation
         if CLLocationCoordinate2DIsValid(state.aircraftLocation) {
             let heading: Double = state.attitude.yaw*M_PI/180.0
-            djiMapView!.updateAircraftLocation(state.aircraftLocation, withHeading: heading)
-    
+            NavigationWaypointViewController().djiMapView!.updateAircraftLocation(state.aircraftLocation, withHeading: heading)
+            
         }
         if CLLocationCoordinate2DIsValid(state.homeLocation) {
-            djiMapView!.updateHomeLocation(state.homeLocation)
+            NavigationWaypointViewController().djiMapView!.updateHomeLocation(state.homeLocation)
         }
     }
 
-   
-
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+        return filesArray.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+        print("mission selected =  " + filesArray[row])
+        NavigationWaypointViewController().setNavTitle(filesArray[row])
+        //self.title = filesArray[row]
+        self.indexSelected = row
+        self.missionPicker.hidden = true
+        self.downloadButton.enabled = true
+        //let url = NSURL(string: "https://www.dropbox.com/s/19sepkw02kiizrm/FirstMission.waypoints?dl=1")!
+        //let url = NSURL(string: "https://dl.dropboxusercontent.com/u/23634529/test3.csv?dl=1")!
+        //good one
+        //
+        
+        var dropboxURL: String = ""
+        if row == 0 {
+            dropboxURL = "https://www.dropbox.com/s/19sepkw02kiizrm/FirstMission.waypoints?dl=1"
+        }
+        if row == 1 {
+            dropboxURL = "https://www.dropbox.com/s/aphw8opb99erddv/GDIR_PlanVolChampCarrier1.waypoints?dl=1"
+        }
+        let url = NSURL(string: dropboxURL)!
+        downloadTask = backgroundSession.downloadTaskWithURL(url)
+        downloadTask.resume()
+        
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) ->String?{
+        return filesArray[row]
+    }
+    
     func URLSession(session: NSURLSession,
                     downloadTask: NSURLSessionDownloadTask,
                     didFinishDownloadingToURL location: NSURL){
@@ -402,7 +464,7 @@ class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControll
         self.waypointAnnotations.removeAll()
         self.waypointList.removeAll()
         //DJIWaypointMissionAirLineCurve
-    
+        
         let isFileFound:Bool? = NSFileManager.defaultManager().fileExistsAtPath(path)
         if isFileFound == true{
             //let viewer = UIDocumentInteractionController(URL: NSURL(fileURLWithPath: path))
@@ -414,7 +476,7 @@ class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControll
                 //var point1: CLLocationCoordinate2D
                 //var wp1: DJIWaypoint
                 let action1: DJIWaypointAction = DJIWaypointAction(actionType: DJIWaypointActionType.ShootPhoto, param: 0)
-
+                
                 csv.enumerateAsArray { array in
                     //array[8], array[9], array[10]
                     if ((array[8] as NSString).doubleValue > 0 ){
@@ -430,21 +492,29 @@ class NavigationWaypointViewController: DJIBaseViewController, DJIFlightControll
                         let wpAnnotation: DJIWaypointAnnotation = DJIWaypointAnnotation()
                         wpAnnotation.coordinate = point1
                         wpAnnotation.text = "\(Int(self.waypointList.count))"
-                        self.mapView.addAnnotation(wpAnnotation)
+                        NavigationWaypointViewController().mapView.addAnnotation(wpAnnotation)
+                        //self.mapView.addAnnotation(wpAnnotation)
                         self.waypointAnnotations.append(wpAnnotation)
                     }
                 }
                 //print(tsv.columns)
                 //print(tsv.rows)
-                self.djiMapView?.zoomToFitMapAnnotations(self.waypointList)
+                NavigationWaypointViewController().djiMapView?.zoomToFitMapAnnotations(self.waypointList)
+                //self.djiMapView?.zoomToFitMapAnnotations(self.waypointList)
             } catch {
                 // Error handling
             }
         }
     }
     
-    func documentInteractionControllerViewControllerForPreview(controller: UIDocumentInteractionController) -> UIViewController{
-        return self
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
-    
+    */
+
 }
